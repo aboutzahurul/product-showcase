@@ -85,7 +85,22 @@ class Product_Showcase {
 		$this->plugin_name = PRODUCT_SHOWCASE_NAME;
 		$this->version = PRODUCT_SHOWCASE_VERSION;
 
+		// setting custom post type name, this don't require wp functionality to declare in this stage.
 		$this->post_type = 'product-showcase';
+
+		// Initialize the settings which dependent to wordpress functionality
+		// calling it in hook so in this stage we have required wp functionality available to declare related settings.
+		add_action('init', array($this, 'init'), 0);
+	}
+
+	/**
+	 * Initialize the settings which dependent to wordpress functionality
+	 * Calling it in hook so in this stage we have required wp functionality available to declare related settings.
+	 *
+	 * @since 1.0.1
+	 */
+	public function init() {
+
 		$this->custom_taxonomies = array(
 			'product-showcase-category' => array(
 				'singular'              => _x( 'Category', 'taxonomy singular name', $this->plugin_name ),
